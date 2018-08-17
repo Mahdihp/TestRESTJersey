@@ -13,6 +13,7 @@ import java.sql.SQLException;
 @Path("/teacher")
 public class Teachers {
 
+
     TeacherDao teacherDao = null;
 
     public Teachers() {

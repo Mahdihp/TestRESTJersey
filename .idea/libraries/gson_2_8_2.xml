@@ -1,0 +1,33 @@
+<component name="libraryTable">
+  <library name="gson-2.8.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/gson-2.8.2.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/hk2-api-2.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/hk2-locator-2.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/hk2-utils-2.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jackson-annotations-2.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jackson-core-2.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jackson-databind-2.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jackson-jaxrs-base-2.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jackson-jaxrs-json-provider-2.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/javassist-3.18.1-GA.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/javax.annotation-api-1.2.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/javax.inject-2.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/javax.servlet-3.0.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/javax.ws.rs-api-2.0.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jaxb-api-2.2.7.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jersey-client.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jersey-common.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jersey-container-servlet-core.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jersey-container-servlet.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jersey-guava-2.6.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jersey-media-json-jackson-2.0-m07-1.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jersey-server.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/jta-1.0.1B.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/persistence-api-1.0.jar!/" />
+      <root url="jar://$USER_HOME$/apps/lib/lib jersey/validation-api-1.1.0.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

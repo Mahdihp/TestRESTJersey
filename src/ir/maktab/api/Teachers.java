@@ -13,9 +13,7 @@ import java.sql.SQLException;
 @Path("/teacher")
 public class Teachers {
 
-
     TeacherDao teacherDao = null;
-
     public Teachers() {
         try {
             teacherDao=new TeacherDao();
@@ -24,9 +22,32 @@ public class Teachers {
         }
     }
 
+    @GET
+    @Path("/teachers2")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Person getPersonByIdQuery(@QueryParam("id")int id){
+        try {
+            return teacherDao.read(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @GET
-    @Path("/getteacher")
+    @Path("/teachers/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Person getPersonById(@PathParam("id")int id){
+        try {
+            return teacherDao.read(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @GET
+    @Path("/teachers")
     @Produces(MediaType.APPLICATION_JSON)
     public Person[] getTeacher() {
         try {

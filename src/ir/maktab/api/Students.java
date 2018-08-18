@@ -22,6 +22,29 @@ public class Students {
         }
     }
 
+    @GET
+    @Path("/teachers2")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Person getPersonByIdQuery(@QueryParam("id")int id){
+        try {
+            return studentDao.read(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @GET
+    @Path("/teachers/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Person getPersonById(@PathParam("id")int id){
+        try {
+            return studentDao.read(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @GET
     @Path("/getstudent")

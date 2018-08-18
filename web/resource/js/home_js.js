@@ -1,7 +1,7 @@
 function loadDoc() {
     var xhttp = new XMLHttpRequest();
     var txt = "";
-    var temp ="";
+    var temp = "";
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var myObj = JSON.parse(this.responseText);
@@ -46,7 +46,7 @@ function deleteById(id) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-           // location.reload();
+            // location.reload();
             loadDoc();
         }
     }
@@ -67,4 +67,21 @@ function update(object) {
     xhttp.open("POST", updateUrl + object, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();*/
+}
+
+function insertPage() {
+    window.location = "http://localhost:8080/insert.html";
+}
+
+function homePage() {
+    window.location = "http://localhost:8080/home.html";
+
+}
+
+function seachPage() {
+
+    (document).ready(function () {
+       this.location = "http://localhost:8080/home.html";
+    });
+
 }

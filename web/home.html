@@ -14,9 +14,33 @@
 </div>
 <br>
 <br>
-<button id="search" onclick="seachPage()" > Search</button>
+<button id="search" onclick="seachPage()"> Search</button>
 <button id="insert" onclick="insertPage()"> Insert</button>
 
+<br>
+<br>
+<br>
+
+<div id="form">
+    <input type="hidden" id="id"/>
+    <table id="tbl_form">
+
+        <tr>
+            <td><label>First Name</label></td>
+            <td><input type="text" id="fname" name="fname"/></td>
+        </tr>
+        <tr>
+            <td><label>Last Name</label></td>
+            <td><input type="text" id="lname" name="lname"/></td>
+        </tr>
+        <tr>
+            <td><label>Style Name</label></td>
+            <td><input type="text" id="style" name="style"/></td>
+        </tr>
+    </table>
+    <button id="btn_Save" onclick="save()">Save</button>
+    <button id="btn_Cancel" onclick="cancel()">Cancel</button>
+</div>
 <script src="resource/js/home_js.js">
 
 

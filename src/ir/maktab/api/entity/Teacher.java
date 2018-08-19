@@ -51,4 +51,5 @@ public class Teacher extends Person{
     public void setStyle(String style) {
         this.style = style;
     }
+
 }

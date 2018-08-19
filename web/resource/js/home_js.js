@@ -122,8 +122,52 @@ function insertTacher() {
 }
 
 function search() {
-    var updateUrl = "http://localhost:8080/api/teacher/teachers/";
+    var updateUrl = "http://localhost:8080/api/teacher/teachersname?name=";
+    var name = $("#searchField").val();
+    updateUrl += name;
 
+    console.log(updateUrl);
+    $.ajax({
+        url: updateUrl,
+        type: "GET",
+        data: "query",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (myObj) {
+            // var myObj = JSON.stringify(result);
+            var txt="";
+            console.log(myObj);
+            txt += "<table border='1px'>"
+
+            txt += "<tr>"
+            txt += "<th> ID </th>"
+            txt += "<th> First Name </th>"
+            txt += "<th> Last Name </th>"
+            txt += "<th> Style </th>"
+            // txt += "<th> Delete </th>"
+            // txt += "<th> Update </th>"
+            txt += "</tr>"
+            var i = 1;
+            for (x in myObj) {
+                txt += "<tr>"
+                txt += "<td>" + i + "</td>";
+                txt += "<td>" + myObj[x].fname + "</td>";
+                txt += "<td>" + myObj[x].lname + "</td>";
+                txt += "<td>" + myObj[x].style + "</td>";
+                // txt += "<td><button name=\"delete\" onclick=\"deleteById(" + myObj[x].id + ")\" type=\"button\" > Delete </button></td>";
+                // txt += "<td><button name=\"update\" onclick=\"update(" + myObj[x].id + ")\" type=\"button\" > Update </button></td>";
+                txt += "</tr>"
+                i++;
+            }
+
+
+            txt += "</table>"
+            $("#teachers").append(txt);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
 }
 
 function cancel() {

@@ -15,9 +15,10 @@ public class TeacherDao extends Dao<Teacher, Integer> {
     }
 
     public List<Teacher> findByName(String name)throws SQLException  {
-        String sql = "SELECT * FROM teacher where fname LIKE \" "+name +" \"";
+        String sql = "SELECT * FROM teacher where fname LIKE ?";
         List<Teacher> teacherList = new ArrayList<>();
         PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1,name);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             int id = rs.getInt("id");

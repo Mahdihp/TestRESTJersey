@@ -1,14 +1,13 @@
 package ir.maktab.api;
 
-import ir.maktab.api.entity.Person;
+import ir.maktab.api.entity.Entity;
 import ir.maktab.api.entity.Teacher;
-import ir.maktab.api.entity.User;
 import ir.maktab.api.service.dao.TeacherDao;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.lang.annotation.Target;
 import java.sql.SQLException;
+import java.util.List;
 
 @Path("/teacher")
 public class Teachers {
@@ -23,9 +22,21 @@ public class Teachers {
     }
 
     @GET
+    @Path("/teachersname")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Teacher> getPersonByName(@QueryParam("name")String name){
+        try {
+            return teacherDao.findByName(name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @GET
     @Path("/teachers2")
     @Produces(MediaType.APPLICATION_JSON)
-    public Person getPersonByIdQuery(@QueryParam("id")int id){
+    public Entity getPersonByIdQuery(@QueryParam("id")int id){
         try {
             return teacherDao.read(id);
         } catch (SQLException e) {
@@ -37,7 +48,7 @@ public class Teachers {
     @GET
     @Path("/teachers/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Person getPersonById(@PathParam("id")int id){
+    public Entity getPersonById(@PathParam("id")int id){
         try {
             return teacherDao.read(id);
         } catch (SQLException e) {
@@ -49,7 +60,7 @@ public class Teachers {
     @GET
     @Path("/teachers")
     @Produces(MediaType.APPLICATION_JSON)
-    public Person[] getTeacher() {
+    public List<Teacher> getTeacher() {
         try {
             return teacherDao.readAll();
         } catch (SQLException e) {
@@ -68,8 +79,9 @@ public class Teachers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "Successfully Insert.";
+        return teacher.toJson();
     }
+
     @POST
     @Path("/delete/{id}")
     @Produces(MediaType.TEXT_PLAIN)

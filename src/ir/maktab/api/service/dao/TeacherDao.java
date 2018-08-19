@@ -1,22 +1,37 @@
 package ir.maktab.api.service.dao;
 
 
-import ir.maktab.api.entity.Person;
 import ir.maktab.api.entity.Teacher;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TeacherDao extends AbstractDao {
+public class TeacherDao extends Dao<Teacher, Integer> {
 
     public TeacherDao() throws Exception {
     }
 
-    @Override
-    public void create(Person Person) throws SQLException {
+    public List<Teacher> findByName(String name)throws SQLException  {
+        String sql = "SELECT * FROM teacher where fname LIKE \" "+name +" \"";
+        List<Teacher> teacherList = new ArrayList<>();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String fname = rs.getString("fname");
+            String lname = rs.getString("lname");
+            String style = rs.getString("style");
+            teacherList.add(new Teacher(id, fname, lname, style));
+        }
+        return teacherList;
+    }
 
-        Teacher teacher = (Teacher) Person;
+    @Override
+    public void create(Teacher teacher) throws SQLException {
+
         String sql = "INSERT INTO teacher(fname,lname,style) VALUES(?,?,?);";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, teacher.getFname());
@@ -26,8 +41,9 @@ public class TeacherDao extends AbstractDao {
 
     }
 
+
     @Override
-    public Person read(int id) throws SQLException {
+    public Teacher read(Integer id) throws SQLException {
         String sql = "SELECT * FROM teacher WHERE id=?;";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -41,20 +57,19 @@ public class TeacherDao extends AbstractDao {
     }
 
     @Override
-    public void update(Person Person) throws SQLException {
-        Teacher writerEntity = (Teacher) Person;
+    public void update(Teacher teacher) throws SQLException {
         String sql = "UPDATE teacher SET fname=?,lname=?,style=? WHERE id=?;";
         PreparedStatement ps = connection.prepareStatement(sql);
 
-        ps.setString(1, writerEntity.getFname());
-        ps.setString(2, writerEntity.getLname());
-        ps.setString(3, writerEntity.getStyle());
-        ps.setInt(4, writerEntity.getId());
+        ps.setString(1, teacher.getFname());
+        ps.setString(2, teacher.getLname());
+        ps.setString(3, teacher.getStyle());
+        ps.setInt(4, teacher.getId());
         ps.executeUpdate();
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
         String sql = "DELETE FROM teacher WHERE id=?;";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -62,24 +77,19 @@ public class TeacherDao extends AbstractDao {
     }
 
     @Override
-    public Person[] readAll() throws SQLException {
+    public List<Teacher> readAll() throws SQLException {
         String sql = "SELECT * FROM teacher";
-        Teacher[] teachers = null;
+        List<Teacher> teacherList = new ArrayList<>();
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        rs.last();// move to last row
-        teachers = new Teacher[rs.getRow()]; // get row count
-        rs.beforeFirst(); // move to first row
-        int i = 0;
         while (rs.next()) {
             int id = rs.getInt("id");
             String fname = rs.getString("fname");
             String lname = rs.getString("lname");
             String style = rs.getString("style");
-            teachers[i] = new Teacher(id, fname, lname, style);
-            i++;
+            teacherList.add(new Teacher(id, fname, lname, style));
         }
-        return teachers;
+        return teacherList;
     }
 
     @Override

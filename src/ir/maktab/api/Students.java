@@ -1,22 +1,23 @@
 package ir.maktab.api;
 
-import ir.maktab.api.entity.Person;
+import ir.maktab.api.entity.Entity;
+import ir.maktab.api.entity.Student;
 import ir.maktab.api.entity.Teacher;
-import ir.maktab.api.service.dao.StudentDao;
-import ir.maktab.api.service.dao.TeacherDao;
+import ir.maktab.api.service.dao.StudentCrud;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
+import java.util.List;
 
 @Path("/student")
 public class Students {
 
-    StudentDao studentDao = null;
+    StudentCrud studentDao = null;
 
     public Students() {
         try {
-            studentDao =new StudentDao();
+            studentDao =new StudentCrud();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -25,7 +26,7 @@ public class Students {
     @GET
     @Path("/teachers2")
     @Produces(MediaType.APPLICATION_JSON)
-    public Person getPersonByIdQuery(@QueryParam("id")int id){
+    public Entity getPersonByIdQuery(@QueryParam("id")int id){
         try {
             return studentDao.read(id);
         } catch (SQLException e) {
@@ -37,7 +38,7 @@ public class Students {
     @GET
     @Path("/teachers/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Person getPersonById(@PathParam("id")int id){
+    public Entity getPersonById(@PathParam("id")int id){
         try {
             return studentDao.read(id);
         } catch (SQLException e) {
@@ -49,7 +50,7 @@ public class Students {
     @GET
     @Path("/getstudent")
     @Produces(MediaType.APPLICATION_JSON)
-    public Person[] getStudent() {
+    public List<Student> getStudent() {
         try {
             return studentDao.readAll();
         } catch (SQLException e) {
@@ -62,9 +63,9 @@ public class Students {
     @Path("/add")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String add(Teacher teacher) {
+    public String add(Student student) {
         try {
-            studentDao.create(teacher);
+            studentDao.create(student);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -86,9 +87,9 @@ public class Students {
     @Path("/update")
     @Produces({MediaType.TEXT_PLAIN})
     @Consumes(MediaType.APPLICATION_JSON)
-    public String update(Teacher teacher){
+    public String update(Student student){
         try {
-            studentDao.update(teacher);
+            studentDao.update(student);
         } catch (SQLException e) {
             e.printStackTrace();
         }

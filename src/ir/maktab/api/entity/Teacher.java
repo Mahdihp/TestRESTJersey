@@ -2,7 +2,7 @@ package ir.maktab.api.entity;
 
 import com.google.gson.Gson;
 
-public class Teacher extends Person{
+public class Teacher extends Entity<Integer> {
 
     private String fname;
     private String lname;
@@ -18,7 +18,7 @@ public class Teacher extends Person{
         Gson gson=new Gson();
         return gson.toJson(this);
     }
-    public Teacher(int id, String fname, String lname, String style) {
+    public Teacher(Integer id, String fname, String lname, String style) {
         super(id);
         this.fname = fname;
         this.lname = lname;

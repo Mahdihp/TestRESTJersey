@@ -1,6 +1,6 @@
 package ir.maktab.api.entity;
 
-public class Student extends Person {
+public class Student extends Entity {
 
     private String fname;
     private String lname;

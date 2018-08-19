@@ -1,22 +1,21 @@
 package ir.maktab.api.service.dao;
 
 
-import ir.maktab.api.entity.Person;
 import ir.maktab.api.entity.Student;
-import ir.maktab.api.entity.Teacher;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class StudentDao extends AbstractDao {
+public class StudentCrud extends Dao<Student, Integer> {
 
-    public StudentDao() throws Exception {
+    public StudentCrud() throws Exception {
     }
 
     @Override
-    public void create(Person Person) throws SQLException {
-        Student student = (Student) Person;
+    public void create(Student student) throws SQLException {
         String sql = "INSERT INTO student(fname,lname,dept,teacher_id) VALUES(?,?,?,?);";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, student.getFname());
@@ -27,7 +26,7 @@ public class StudentDao extends AbstractDao {
     }
 
     @Override
-    public Person read(int id) throws SQLException {
+    public Student read(Integer id) throws SQLException {
         String sql = "SELECT * FROM student WHERE id=?;";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -42,8 +41,7 @@ public class StudentDao extends AbstractDao {
     }
 
     @Override
-    public void update(Person Person) throws SQLException {
-        Student student = (Student) Person;
+    public void update(Student student) throws SQLException {
         String sql = "UPDATE student SET fname=?,lname=?,dept=?,teacher_id=? WHERE id=?;";
         PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -55,7 +53,7 @@ public class StudentDao extends AbstractDao {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
         String sql = "DELETE FROM student WHERE id=?;";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -63,25 +61,21 @@ public class StudentDao extends AbstractDao {
     }
 
     @Override
-    public Person[] readAll() throws SQLException {
-        Student[] students = null;
+    public List<Student> readAll() throws SQLException {
+        List<Student> studentList = new ArrayList<>();
         String sql = "SELECT * FROM student";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        rs.last();// move to last row
-        students = new Student[rs.getRow()]; // get row count
-        rs.beforeFirst(); // move to first row
-        int i = 0;
+
         while (rs.next()) {
             int id = rs.getInt("id");
             String fname = rs.getString("fname");
             String lname = rs.getString("lname");
             String dept = rs.getString("dept");
             int teacher_id = rs.getInt("teacher_id");
-            students[i] = new Student(id, fname, lname, dept, teacher_id);
-            i++;
+            studentList.add(new Student(id, fname, lname, dept, teacher_id));
         }
-        return students;
+        return studentList;
     }
 
     @Override

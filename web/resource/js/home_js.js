@@ -94,34 +94,38 @@ function save() {
         }
     });
 }
+
 function insertTacher() {
     var fname = $("#fname").val();
     var lname = $("#lname").val();
     var style = $("#style").val();
-    var json = "{\"id\":" + 0 + ",\"fname\":\"" + fname + "\",\"lname\":\"" + lname + "\",\"style\":\"" + style + "\"}";
-     console.log(json);
+    // var json = "{\"id\":" + 0 + ",\"fname\":\"" + fname + "\",\"lname\":\"" + lname + "\",\"style\":\"" + style + "\"}";
+    var json = {"id": 0, "fname": fname, "lname": lname, "style": style};
+    // console.log(json);
     var updateUrl = "http://localhost:8080/api/teacher/add";
     $.ajax({
         url: updateUrl,
         type: "POST",
-        data: json,
+        data: JSON.stringify(json),
         contentType: "application/json",
         dataType: "json",
         success: function (data, status, xhr) {
-           // console.log(data);
-            homePage();
+            // console.log(data);
+           homePage();
 
         }
         ,
         error: function (jqXhr, textStatus, errorMessage) { // error callback
-            console.log(errorMessage);
+            console.log("ErrorIng: " + errorMessage);
         }
     });
 }
+
 function search() {
     var updateUrl = "http://localhost:8080/api/teacher/teachers/";
 
 }
+
 function cancel() {
     $("#form").hide();
 }

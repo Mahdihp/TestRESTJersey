@@ -1,21 +1,22 @@
 package ir.maktab.api.service.dao;
 
 
-import ir.maktab.api.entity.Person;
 
-import java.sql.SQLException;
 
-public interface Dao {
+import ir.maktab.api.entity.Entity;
 
-    void create(Person Person) throws SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
-    Person read(int id) throws SQLException;
+public abstract class Dao<T extends Entity,I> implements Crud<T,I> {
 
-    void update(Person Person) throws SQLException;
+    private static String url = "jdbc:mysql://localhost:3306/library?user=root&password=";
+    protected static Connection connection = null;
 
-    void delete(int id) throws SQLException;
+    public Dao() throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+        connection = DriverManager.getConnection(url);
 
-    Person[] readAll() throws SQLException;
+    }
 
-    void empty() throws SQLException;
 }

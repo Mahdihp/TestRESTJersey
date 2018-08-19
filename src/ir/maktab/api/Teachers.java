@@ -93,7 +93,7 @@ public class Teachers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "Successfully Delete.";
+        return new MessageBody(200, "Success Insert").toJson();
     }
 
     @POST
@@ -106,7 +106,7 @@ public class Teachers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "Successfully Update.";
+        return new MessageBody(200, "Success Insert").toJson();
     }
 
 }

@@ -85,12 +85,13 @@ function save() {
         type: "POST",
         data: json,
         contentType: "application/json",
-        dataType: "json",
-        success: function (result) {
-            console.log(result);
+        ataType: "json",
+        success: function (data, status, xhr) {
+            console.log(data);
+            loadDoc();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
+        error: function (jqXhr, textStatus, errorMessage) { // error callback
+            console.log("ErrorIng: " + errorMessage);
         }
     });
 }

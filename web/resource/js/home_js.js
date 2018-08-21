@@ -1,6 +1,6 @@
-$(document).ready(function () {
-    $("#form").hide()
-});
+// $(document).ready(function () {
+//     $("#form").hide()
+// });
 
 function loadDoc() {
     var xhttp = new XMLHttpRequest();
@@ -8,7 +8,7 @@ function loadDoc() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var myObj = JSON.parse(this.responseText);
-            txt += "<table border='1px' class='table table-hover'>"
+            txt += "<table border='1px' class='table table-hover table-bordered'>"
 
             txt += "<thead>"
             txt += "<tr>"
@@ -30,7 +30,7 @@ function loadDoc() {
                 txt += "<td>" + myObj[x].lname + "</td>";
                 txt += "<td>" + myObj[x].style + "</td>";
                 txt += "<td><button data-toggle='modal' data-target='#exampleModalCenter' class='btn btn-danger' name=\"delete\" onclick=\"deleteById(" + myObj[x].id + ")\" type=\"button\" > Delete </button></td>";
-                txt += "<td><button class='btn btn-secondary' name=\"update\" onclick=\"update(" + myObj[x].id + ")\" type=\"button\" > Update </button></td>";
+                txt += "<td><button data-toggle='modal' data-target='#updateRowModal' class='btn btn-secondary' name=\"update\" onclick=\"update(" + myObj[x].id + ")\" type=\"button\" > Update </button></td>";
                 txt += "</tr>"
                 i++;
             }
@@ -92,27 +92,54 @@ function deleteById(id) {
 }
 
 function update(id) {
-    $('html, body').animate({scrollTop:1000},'50');
+    //console.log(id);
+    /*$('html, body').animate({scrollTop:1000},'50');
+    var updateUrl = "http://localhost:8080/api/teacher/teachers/";
+    $.get(updateUrl + id, function (data, status) {
+        console.log(data["fname"]);
+        $("#form").show();
+        $("#id").val(data["id"]);
+        $("#fname").val(data["fname"]);
+        $("#lname").val(data["lname"]);
+        $("#style").val(data["style"]);
+    })*/
+
+    $('#updateRowModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('Save Information:')
+        modal.find('.modal-body input').val(recipient)
+
+    });
     var updateUrl = "http://localhost:8080/api/teacher/teachers/";
     $.get(updateUrl + id, function (data, status) {
         // console.log(data["fname"]);
-
-        $("#form").show();
         $("#id").val(data["id"]);
         $("#fname").val(data["fname"]);
         $("#lname").val(data["lname"]);
         $("#style").val(data["style"]);
     })
 
+    $("#btnCancel").on("click", function(){
+        $("#updateRowModal").modal('hide');
+    });
+    $("#btnOK").on("click", function(){
+        $("#id").val();
+      var fname =  $("#fname").val();
+        var lname =  $("#lname").val();
+        var style = $("#style").val();
+        var json = "{ \"id\":" + id + ",\"fname\":\"" + fname + "\",\"lname\":\"" + lname + "\",\"style\":\"" + style + "\"}";
+        // console.log(json)
+        save(json);
+    });
+
+
 }
 
-function save() {
-    var id = $("#id").val();
-    var fname = $("#fname").val();
-    var lname = $("#lname").val();
-    var style = $("#style").val();
-    var json = "{ \"id\":" + id + ",\"fname\":\"" + fname + "\",\"lname\":\"" + lname + "\",\"style\":\"" + style + "\"}";
-    // console.log(json);
+function save(json) {
     var updateUrl = "http://localhost:8080/api/teacher/update";
     $.ajax({
         url: updateUrl,
@@ -122,10 +149,11 @@ function save() {
         ataType: "json",
         success: function (data, status, xhr) {
             console.log(data);
+            $("#updateRowModal").modal('hide');
             loadDoc();
         },
         error: function (jqXhr, textStatus, errorMessage) { // error callback
-            console.log("ErrorIng: " + errorMessage);
+            console.log("Error: " + errorMessage);
         }
     });
 }
@@ -175,7 +203,7 @@ function search() {
             // var myObj = JSON.stringify(result);
             var txt = "";
             console.log(myObj);
-            txt += "<table border='1px' class='table table-hover'>"
+            txt += "<table border='1px' class='table table-hover table-bordered'>"
 
             txt += "<tr>"
             txt += "<th> ID </th>"

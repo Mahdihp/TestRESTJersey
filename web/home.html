@@ -6,18 +6,32 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 
     </script>
+    <link rel="stylesheet" href="resource/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+
     <!--<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"/>-->
 </head>
 <body onload="loadDoc()">
+<ul class="nav justify-content-center nav-pills">
+
+    <li class="nav-item">
+        <a class="nav-link active" href="http://localhost:8080/home.html">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="http://localhost:8080/search.html">Search</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="http://localhost:8080/insert.html">Insert</a>
+    </li>
+</ul>
+<br>
 <div id="teachers">
 
 </div>
-<br>
-<br>
-<button id="search" onclick="seachPage()"> Search</button>
-<button id="insert" onclick="insertPage()"> Insert</button>
-
-<br>
 <br>
 <br>
 
@@ -38,8 +52,8 @@
             <td><input type="text" id="style" name="style"/></td>
         </tr>
     </table>
-    <button id="btn_Save" onclick="save()">Save</button>
-    <button id="btn_Cancel" onclick="cancel()">Cancel</button>
+    <button class="btn btn-primary" id="btn_Save" onclick="save()">Save</button>
+    <button class="btn btn-primary" id="btn_Cancel" onclick="cancel()">Cancel</button>
 </div>
 <script src="resource/js/home_js.js">
 

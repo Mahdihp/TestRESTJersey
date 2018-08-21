@@ -8,8 +8,9 @@ function loadDoc() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var myObj = JSON.parse(this.responseText);
-            txt += "<table border='1px'>"
+            txt += "<table border='1px' class='table table-hover'>"
 
+            txt += "<thead>"
             txt += "<tr>"
             txt += "<th> ID </th>"
             txt += "<th> First Name </th>"
@@ -18,19 +19,22 @@ function loadDoc() {
             txt += "<th> Delete </th>"
             txt += "<th> Update </th>"
             txt += "</tr>"
+            txt += "</thead>"
             var i = 1;
+            txt += "<tbody>";
             for (x in myObj) {
+
                 txt += "<tr>"
                 txt += "<td>" + i + "</td>";
                 txt += "<td>" + myObj[x].fname + "</td>";
                 txt += "<td>" + myObj[x].lname + "</td>";
                 txt += "<td>" + myObj[x].style + "</td>";
-                txt += "<td><button name=\"delete\" onclick=\"deleteById(" + myObj[x].id + ")\" type=\"button\" > Delete </button></td>";
-                txt += "<td><button name=\"update\" onclick=\"update(" + myObj[x].id + ")\" type=\"button\" > Update </button></td>";
+                txt += "<td><button class='btn btn-danger' name=\"delete\" onclick=\"deleteById(" + myObj[x].id + ")\" type=\"button\" > Delete </button></td>";
+                txt += "<td><button class='btn btn-secondary' name=\"update\" onclick=\"update(" + myObj[x].id + ")\" type=\"button\" > Update </button></td>";
                 txt += "</tr>"
                 i++;
             }
-
+            txt += "<tbody>";
 
             txt += "</table>"
             document.getElementById("teachers").innerHTML = txt;
@@ -100,6 +104,9 @@ function insertTacher() {
     var fname = $("#fname").val();
     var lname = $("#lname").val();
     var style = $("#style").val();
+    if (fname == "" || lname == ""){
+        return;
+    }
     // var json = "{\"id\":" + 0 + ",\"fname\":\"" + fname + "\",\"lname\":\"" + lname + "\",\"style\":\"" + style + "\"}";
     var json = {"id": 0, "fname": fname, "lname": lname, "style": style};
     // console.log(json);
@@ -112,7 +119,7 @@ function insertTacher() {
         dataType: "json",
         success: function (data, status, xhr) {
             // console.log(data);
-           homePage();
+            homePage();
 
         }
         ,
@@ -136,9 +143,9 @@ function search() {
         dataType: "json",
         success: function (myObj) {
             // var myObj = JSON.stringify(result);
-            var txt="";
+            var txt = "";
             console.log(myObj);
-            txt += "<table border='1px'>"
+            txt += "<table border='1px' class='table table-hover'>"
 
             txt += "<tr>"
             txt += "<th> ID </th>"

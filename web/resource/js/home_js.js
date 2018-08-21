@@ -29,7 +29,7 @@ function loadDoc() {
                 txt += "<td>" + myObj[x].fname + "</td>";
                 txt += "<td>" + myObj[x].lname + "</td>";
                 txt += "<td>" + myObj[x].style + "</td>";
-                txt += "<td><button class='btn btn-danger' name=\"delete\" onclick=\"deleteById(" + myObj[x].id + ")\" type=\"button\" > Delete </button></td>";
+                txt += "<td><button data-toggle='modal' data-target='#exampleModalCenter' class='btn btn-danger' name=\"delete\" onclick=\"deleteById(" + myObj[x].id + ")\" type=\"button\" > Delete </button></td>";
                 txt += "<td><button class='btn btn-secondary' name=\"update\" onclick=\"update(" + myObj[x].id + ")\" type=\"button\" > Update </button></td>";
                 txt += "</tr>"
                 i++;
@@ -46,7 +46,7 @@ function loadDoc() {
 }
 
 function deleteById(id) {
-    if (confirm("آیا مایل به حذف این معلم هستید؟")) {
+    /*if (confirm("آیا مایل به حذف این معلم هستید؟")) {
         var deleteUrl = "http://localhost:8080/api/teacher/delete/";
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -58,12 +58,42 @@ function deleteById(id) {
         xhttp.open("POST", deleteUrl + id, true);
         // xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send();
-    }
+    }*/
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + recipient)
+        modal.find('.modal-body input').val(recipient)
+    });
+    $("#cancel").on("click", function(){
+        $("#exampleModal").modal('hide');
+    });
+    $("#ok").on("click", function(){
+        var deleteUrl = "http://localhost:8080/api/teacher/delete/"+id;
+        $.ajax({
+            url: deleteUrl,
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data, status, xhr) {
+                $("#exampleModal").modal('hide');
+                homePage();
+            }
+            ,
+            error: function (jqXhr, textStatus, errorMessage) { // error callback
+                console.log("ErrorIng: " + errorMessage);
+            }
+        });
+
+    });
 }
 
 function update(id) {
+    $('html, body').animate({scrollTop:1000},'50');
     var updateUrl = "http://localhost:8080/api/teacher/teachers/";
-
     $.get(updateUrl + id, function (data, status) {
         // console.log(data["fname"]);
 
